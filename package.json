@@ -15,6 +15,7 @@
   "dependencies": {
     "element-plus": "^2.2.33",
     "pinia": "^2.0.32",
+    "postcss-pxtorem": "^6.0.0",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6"
   },
