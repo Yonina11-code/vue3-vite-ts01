@@ -1,5 +1,7 @@
 <template>
-  <base-msg01 :name="data.name"></base-msg01>
+<div class="resume-content">
+  <base-msg01 :name="data.name" :data="data"></base-msg01>
+</div>
 </template>
 
 <script setup>
@@ -14,6 +16,8 @@ function getMsg () {
 }
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="less" scoped>
+.resume-content {
+  padding: 20px;
+}
 </style>
