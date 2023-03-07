@@ -3,14 +3,14 @@ export const optionsConfig = () => {
     style: {
       fontSize: '16px',
     },
-    column: [
-      {
-        label: '', // 姓名
-        prop: 'name',
-        style: {
-          fontWeight: 'bold'
-        }
-      },
+    name: {
+      label: '姓名', // 姓名
+      prop: 'name',
+      style: {
+        fontWeight: 'bold'
+      }
+    },
+    columns: [
       {
         label: 'xxx意向',
         prop: 'like'
