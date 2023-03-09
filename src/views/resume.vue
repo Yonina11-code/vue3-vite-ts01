@@ -6,6 +6,7 @@
 
 <script setup>
 import baseMsg01 from '@/components/baseMg/baseMsg01.vue'
+import api from '@/mock/index.ts'
 import { reactive } from 'vue'
 let data = reactive({
   name: 'test0101'
