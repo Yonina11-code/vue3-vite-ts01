@@ -2,6 +2,12 @@ export const optionsConfig = () => {
   return {
     style: {
       fontSize: '16px',
+      width: '33%',
+      height: '40px',
+      lineHeight: '40px'
+    },
+    labelStyle: {
+      marginRight: '10px'
     },
     name: {
       label: '姓名', // 姓名
@@ -12,16 +18,20 @@ export const optionsConfig = () => {
     },
     columns: [
       {
-        label: 'xxx意向',
+        label: 'xxxlike',
         prop: 'like'
       },
       {
-        label: '年x',
+        label: 'yearx',
         prop: 'workTime'
       },
       {
         label: 'dianhua',
         prop: 'phone'
+      },
+      {
+        label: 'wechat',
+        prop: 'wechat'
       }
     ]
   }

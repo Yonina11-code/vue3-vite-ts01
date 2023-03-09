@@ -1,50 +1,34 @@
 import type { MockMethod } from 'vite-plugin-mock'
-const Mock = require('mockjs')
+import Mock from 'mockjs'
 export default [
   {
-    url: '/api/getUserInfo',
+    url: '/api/info',
     method: 'post',
-    response: ({ query }) => {
+    response: () => {
       return {
         code: 200,
-        data: {
-          nickname: '@cname',
-          age: '@integer(10-100)',
-          uid: '@id',
-          url: '@image',
-          city: '@city',
-          country: '@county(true)',
-          province: '@province',
-          mobile_phone: '@phone',
-          email: '@email',
-          region: '@region',
-          menus: [
+        data: Mock.mock({
+          baseMsg: {
+            name: '@cname',
+            like: '@cword',
+            workTime: '@integer(1,2)',
+            age: '@integer(10-100)',
+            uid: '@id',
+            url: '@image',
+            city: '@city',
+            country: '@county(true)',
+            province: '@province',
+            phone: '@integer(11)',
+            wechat: '@email',
+            region: '@region'
+          },
+          'companyMsg|2-3': [
             {
-              menu_name: '一级导航',
-              id: '@id',
-              code: 'Nav1',
-              children: [
-                {
-                  code: 'about',
-                  menu_url: 'views/about',
-                  access_permissions: '["about"]',
-                  children: [],
-                  menu_name: '测试1',
-                  id: '@id'
-                },
-                {
-                  code: 'home',
-                  menu_url: 'views/home',
-                  access_permissions: '["home"]',
-                  children: [],
-                  menu_name: '测试2',
-                  id: '@id'
-                }
-              ]
-            },
-
+              name: '@cname',
+              ctime: '@datetime-@datetime',
+            }
           ]
-        },
+        }),
       }
     },
   },
