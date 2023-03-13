@@ -12,7 +12,7 @@ import title01 from '@/components/titles/title01.vue'
 import api from '@/mock/index.ts'
 import { optionConfig } from '@/const/index.ts'
 import { reactive, ref } from 'vue'
-import { htmlToPdf } from '@/utils/htmlToPdf.ts'
+import { htmlToPdf, downloadPDF } from '@/utils/htmlToPdf.ts'
 let data = reactive({
   name: 'test0101'
 })
@@ -24,7 +24,7 @@ function getMsg () {
 }
 function handlePrint () {
   console.log('content', content.value)
-  htmlToPdf('test', content.value)
+  downloadPDF('test', content.value)
 }
 </script>
 
