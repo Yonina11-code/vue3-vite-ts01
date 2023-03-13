@@ -1,5 +1,6 @@
 <template>
 <div ref="content" class="resume-content">
+  <!-- <h1>tetet</h1> -->
   <base-msg01 :data="data.baseMsg"></base-msg01>
   <title01 :config="optionConfig.title" name="搜狗拼音"></title01>
 </div>
@@ -24,12 +25,13 @@ function getMsg () {
 }
 function handlePrint () {
   console.log('content', content.value)
-  downloadPDF('test', content.value)
+  htmlToPdf('test', content.value)
 }
 </script>
 
 <style lang="less" scoped>
 .resume-content {
   padding: 20px;
+  width: 100%;
 }
 </style>

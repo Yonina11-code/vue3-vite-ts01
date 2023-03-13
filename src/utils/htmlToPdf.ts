@@ -1,23 +1,26 @@
 import html2Canvas from 'html2canvas'
 import JsPDF from 'jspdf'
 export const htmlToPdf = (htmlTitle: String, dots: any) => {
+  document.body.scrollTop = document.documentElement.scrollTop = 0
   console.log('dots', dots)
   html2Canvas(dots, {
-    allowTaint: true,
+    allowTaint: true, // 允许跨域图片
     // taintTest: false,
     useCORS: true,
-    y: 72, // 对y轴进行裁切
-    dpi: window.devicePixelRatio * 4, // 将分辨率提高到特定的dpi 提高四倍
-    scale: 4 //
+    y: 0, // 对y轴进行裁切
+    x: 0,
+    width: dots.width,
+    // dpi: window.devicePixelRatio * 4, // 将分辨率提高到特定的dpi 提高四倍
+    scale: 4,
   }).then(canvas => {
-    console.log('canvas', canvas)
+    console.log('canvas', canvas.width, canvas.height, window)
     let contentWidth = canvas.width
     let contentHeight = canvas.height
     let pageHeight = (contentWidth / 595.28) * 841.89
     let leftHeight = contentHeight
     let position = 0
     let imgWidth = 595.28
-    let imgHeight = 595.28 / contentWidth * contentHeight
+    let imgHeight = (595.28 / contentWidth) * contentHeight
     let pageData = canvas.toDataURL('image/jpeg', 1.0)
     let PDF = new JsPDF('p', 'px', 'a4')
     if (leftHeight < pageHeight) {
