@@ -1,20 +1,14 @@
 <template>
-  <el-config-provider :local="zhCn">
-    <el-container>
-      <el-header>
-        <my-header></my-header>
-      </el-header>
-      <el-main>
-        <RouterView />
-      </el-main>
-    </el-container>
+  <el-config-provider :local="zhCn" :size="globalComSize">
+    <RouterView />
   </el-config-provider>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
-import myHeader from '@/components/myHeader.vue'
-import zhCn from 'element-plus/es/locale/lang/zh-cn'
+import zhCn from 'element-plus/es/locale/lang/zh-cn';
+import { useSettingsStore } from '@/pinia/modules/setting';
 // 自适应
 function resize() {
   let fs = document.body.clientWidth / 75
@@ -31,6 +25,10 @@ function resize() {
 }
 resize()
 window.onresize = resize
+
+const SettingStore = useSettingsStore()
+//  配置全局组件大小
+const globalComSize = computed((): string => SettingStore.themeConfig.globalComSize)
 </script>
 
 <style scoped></style>

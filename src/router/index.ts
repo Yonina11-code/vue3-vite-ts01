@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import echartsRouter from './modules/echarts'
+import Layout  from '@/layout/index.vue';
 interface extendRoute {
   hidden?: boolean
 }
@@ -21,7 +22,15 @@ export const constantRoutes = [
   {
     path: '/',
     name: 'home',
-    redirect: '/resume'
+    redirect: '/resume',
+    component: Layout,
+    children: [
+      {
+        path: '/resume',
+        name: 'resume',
+        component: () => import('../views/resume.vue')
+      }
+    ]
   },
   {
     path: '/about',
@@ -30,11 +39,6 @@ export const constantRoutes = [
     // this generates a separate chunk (About.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import('../views/AboutView.vue')
-  },
-  {
-    path: '/resume',
-    name: 'resume',
-    component: () => import('../views/resume.vue')
   }
 
 
@@ -42,6 +46,7 @@ export const constantRoutes = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: constantRoutes
+
 })
 
 export default router

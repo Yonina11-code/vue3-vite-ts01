@@ -30,6 +30,11 @@ export default defineConfig({
           propList: ['*'], // 需要转换的属性，这里选择全部都进行转换
         })
       ]
-    }
+    },
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@use "./src/styles/index.scss" as *;`,
+      },
+    },
   }
 })
