@@ -1,0 +1,126 @@
+<template>
+  <div>
+    <el-drawer v-model="drawer" title="主题配置" size="300px">
+      <div class="theme-item">
+        <label>导航栏布局</label>
+        <el-select
+          v-model="layout"
+          placeholder="请选择"
+          style="width: 150px"
+          @change="(val) => changeSwitch('mode', val)">
+          <el-option
+            v-for="(direct, index) in directionDict"
+            :key="index"
+            :label="direct.label"
+            :value="direct.value"
+          ></el-option>
+        </el-select>
+      </div>
+    </el-drawer>
+  </div>
+</template>
+
+<script setup>
+import { ref, computed } from 'vue'
+import { useSettingsStore } from '@/pinia/modules/setting'
+const settingStore = useSettingsStore()
+const directionDict = ref([
+  {
+    label: '纵向',
+    value: 'vertical'
+  },
+  {
+    label: '横向',
+    value: 'horizontal'
+  },
+  {
+    label: '分栏',
+    value: 'columns'
+  }
+])
+const layout = ref('')
+const drawer = computed({
+  get () {
+    return settingStore.themeConfig.showSetting
+  },
+  set () {
+    changeSwitch('type', !settingStore.themeConfig.showSetting)
+  }
+})
+const changeSwitch = (type, val) => {
+  settingStore.setThemeConfig({ type, val })
+  if (type === 'mode') {}
+}
+</script>
+
+<style lang="scss" scoped>
+  ::v-deep(.el-drawer__header) {
+    border-bottom: 1px solid #ebeef5;
+    padding: 15px 20px 14px;
+    margin-bottom: 0;
+  }
+  .m-setting-fix {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    z-index: 999;
+    padding: 10px 0 0 0;
+    margin: 0;
+    text-align: center;
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid #dcdfe6;
+    border-top-left-radius: 5.5px;
+    border-bottom-left-radius: 5.5px;
+    box-shadow: 0 0 50px 0 rgb(82 63 105 / 15%);
+    transform: translateY(-50%);
+    .item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      justify-content: center;
+      padding: 0 8px 10px 10px;
+      margin: 0;
+      list-style: none;
+    }
+    .item-child {
+      color: #3698fd;
+      width: 60px;
+      height: 60px;
+      /*padding-top: 10px;*/
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      background: #f6f8f9;
+      align-items: center;
+      justify-content: center;
+      border-radius: 5.5px;
+      font-size: 12px;
+      background: #ebf5ff;
+      transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease,
+        box-shadow 0.15s ease;
+    }
+    .item-child2 {
+      margin-top: 10px;
+      color: #b37feb;
+      background: #f7f2fd;
+      transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease,
+        box-shadow 0.15s ease;
+    }
+  }
+
+  :deep(.el-drawer__title) {
+    font-weight: bold;
+    color: black;
+  }
+  .theme-item {
+    width: 100%;
+    display: flex;
+    margin-bottom: 15px;
+    align-items: center;
+    font-size: 14px;
+    color: black;
+    justify-content: space-between;
+  }
+</style>

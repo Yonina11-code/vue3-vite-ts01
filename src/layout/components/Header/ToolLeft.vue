@@ -1,5 +1,6 @@
 <template>
   <div class="m-tool-left">
+    <h1>left</h1>
     <CollapseIcon />
     <Hamburger />
   </div>

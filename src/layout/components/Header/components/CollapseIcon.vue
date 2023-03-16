@@ -1,13 +1,18 @@
 <template>
   <div class="hamburger-container" @click="handleCollapse">
-    <el-icon class="icon" v-if="isCollapse"><expand></expand></el-icon>
-    <el-icon class="icon" v-else><fold></fold></el-icon>
+    <el-icon class="icon" v-if="isCollapse">
+      <Expand />
+    </el-icon>
+    <el-icon class="icon" v-else>
+      <Fold />
+    </el-icon>
   </div>
 </template>
 
 <script lang="ts" setup>
   import { useSettingsStore } from '@/pinia/modules/setting'
   import { computed } from 'vue'
+  import { Expand, Fold } from '@element-plus/icons'
   const SettingStore = useSettingsStore()
   const isCollapse = computed(() => !SettingStore.isCollapse)
   const handleCollapse = () => {

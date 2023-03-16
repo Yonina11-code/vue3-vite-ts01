@@ -29,25 +29,40 @@
 </template>
 
 <script setup lang="ts">
+import { Search } from '@element-plus/icons'
 import { computed, onMounted, ref, watch } from 'vue'
 import path from 'path-browserify' // node语法转换 path
 import Fuse from 'fuse.js'
 import { useVueFuse } from 'vue-fuse'
 import { useRouter } from 'vue-router'
+import { usePermissionStore } from '@/pinia/modules/permission.ts'
 const router = useRouter()
 const isShowSearch = ref(false)
 const options = ref([])
 const searchPool = ref([])
+const search = ref('')
 const fuse = ref(null)
 const handleSearch = () => {
   isShowSearch.value = true
 }
+const permissionStore = usePermissionStore()
+const routes = computed(() => permissionStore.routes)
 watch(searchPool, (list) => {
   initFuse(list)
 })
 onMounted(() => {
-  searchPool.valu =
+  searchPool.value = generateRoutes(JSON.parse(JSON.stringify(routes.value)))
 })
+const change = (val) => {
+  if (val) {
+    router.push({
+      push: val
+    })
+  }
+  options.value = []
+  search.value = ''
+  isShowSearch.value = false
+}
 const querySearch = (query: string) => {
   if (query !== '') {
     options.value = fuse.value.search(query)
@@ -56,7 +71,7 @@ const querySearch = (query: string) => {
   }
 }
 // 筛选出可以在侧栏中显示的路线 生产标题
-const generateRoutes = (routes, basePath = '/', prefixTitle = []) => {
+const generateRoutes = (routes, basePath = '/', prefixTitle = []): any => {
   let res = []
   for (const router of routes) {
     // 忽略隐藏的路由
@@ -84,8 +99,68 @@ const generateRoutes = (routes, basePath = '/', prefixTitle = []) => {
   }
   return res
 }
+const initFuse = (list) => {
+  fuse.value = new Fuse(list, {
+    shouldSort: true,
+    threshold: 0.4,
+    location: 0,
+    distance: 100,
+    maxPatternLength: 32,
+    minMatchCharLength: 1,
+    keys: [
+      {
+        name: 'title',
+        weight: 0.7
+      },
+      {
+        name: 'path',
+        weight: 0.3
+      }
+    ]
+  })
+}
 </script>
 
 <style lang="scss" scoped>
-
+  .m-headerSearch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    .item-info-pop {
+      display: flex;
+      align-items: center;
+    }
+    .bell {
+      color: black;
+    }
+    .item-child {
+      display: flex;
+      align-items: center;
+      font-size: 13px;
+    }
+  }
+  .transverseMenu {
+    .bell {
+      color: white;
+    }
+  }
+  /* 菜单搜索样式 */
+  .m-headerSearch {
+    :deep(.el-dialog) {
+      .el-dialog__header {
+        display: none;
+      }
+      .el-dialog__body {
+        padding: 0;
+      }
+    }
+    .header-search-select {
+      height: 50px;
+      :deep(.el-input__wrapper) {
+        height: 50px;
+      }
+    }
+  }
 </style>

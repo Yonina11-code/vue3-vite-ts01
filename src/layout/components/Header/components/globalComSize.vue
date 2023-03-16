@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
   import { reactive, computed } from 'vue'
-  import { useSettingStore } from '@/pinia/modules/setting.ts'
+  import { useSettingsStore } from '@/pinia/modules/setting.ts'
   const settingStore = useSettingsStore()
   const globalComSize = computed((): string  => settingStore.themeConfig.globalComsize)
   const assemblySizeListCh = reactive<{ [key: string]: any }>({
