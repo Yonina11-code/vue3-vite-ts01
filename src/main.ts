@@ -3,6 +3,8 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import App from './App.vue'
 import router from './router'
+// 权限路由
+import './permission'
 import './assets/main.less'
 import pinia from './pinia'
 const app = createApp(App)

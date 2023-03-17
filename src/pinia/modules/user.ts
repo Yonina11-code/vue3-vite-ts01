@@ -5,7 +5,7 @@ export const useUserStore = defineStore({
   state: () => ({ // 返回对象的函数
     token: null,
     userInfo: {},
-    roles: localStorage.roles ? JSON.parse(localStorage.roes): []
+    roles: localStorage.roles ? JSON.parse(localStorage.roles): []
   }),
   getters: {},
   actions: {

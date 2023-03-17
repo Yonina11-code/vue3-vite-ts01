@@ -2,14 +2,14 @@ import Layout from '@/layout/index.vue'
 
 export default [
   {
-    path: 'echarts',
+    path: '/echarts',
     component: Layout,
     redirect: '/echarts/migration',
     name: 'echarts',
     meta: {
       title: 'Echarts',
       icon: 'trend-charts',
-      roles: ['other']
+      roles: ['admin']
     },
     children: [
       {
@@ -18,8 +18,8 @@ export default [
         name: 'migration',
         meta: {
           title: '迁徙图',
-          roles: ['other'],
-          icon: 'MenuIcon'
+          roles: ['admin'],
+          icon: 'Promotion'
         }
       }
     ]

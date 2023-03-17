@@ -33,7 +33,7 @@
   const assemblySizeList = reactive<string[]>(['defalut', 'large', 'small'])
   const setAssemblySize = (item: string) => {
     if (globalComSize.value === item) return
-    settingStore.setThemeConfig({ key: 'globalComsize', val: item })
+    settingStore.setThemeConfig({key: 'globalComsize', val: item })
   }
 </script>
 

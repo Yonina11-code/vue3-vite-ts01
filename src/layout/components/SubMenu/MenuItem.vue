@@ -6,7 +6,7 @@
         <component :is="subItem?.meta?.icon"></component>
       </el-icon>
       <template #title>
-        <span>{{subITem?.meta?.title}}</span>
+        <span>{{subItem?.meta?.title}}</span>
       </template>
   </el-menu-item>
 </template>

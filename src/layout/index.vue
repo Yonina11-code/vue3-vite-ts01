@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{themeConfig.mode}}
     <component :is="LayoutComponents[themeConfig.mode]"></component>
     <Theme />
   </div>
@@ -16,7 +17,10 @@ const LayoutComponents = {
   vertical: LayoutVertical
 }
 const SettingStore = useSettingsStore()
-const themeConfig = computed(() => SettingStore.themeConfig)
+const themeConfig = computed(() => {
+  console.log('themeConfig', SettingStore.themeConfig)
+  return SettingStore.themeConfig
+})
 </script>
 
 <style lang="scss" scoped>

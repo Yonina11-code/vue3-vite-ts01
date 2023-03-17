@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, RouteRecordRaw, } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import echartsRouter from './modules/echarts'
 import Layout  from '@/layout/index.vue';
@@ -18,7 +18,7 @@ export const notFoundRouter = {
   redirect: '/404'
 }
 
-export const constantRoutes = [
+export const constantRoutes: Array<RouteRecordRaw & extendRoute> = [
   {
     path: '/',
     name: 'home',
@@ -28,16 +28,21 @@ export const constantRoutes = [
       {
         path: '/resume',
         name: 'resume',
-        component: () => import('../views/resume.vue')
+        component: () => import('../views/resume.vue'),
+        meta: { title: '登录res' }
       }
     ]
   },
   {
+    path: '/login',
+    name: 'login',
+    hidden: true,
+    component: () => import('@/views/login/index.vue'),
+    meta: { title: '登录' }
+  },
+  {
     path: '/about',
     name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (About.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import('../views/AboutView.vue')
   }
 

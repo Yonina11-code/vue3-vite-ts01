@@ -9,6 +9,7 @@
         :unique-opened="SettingStore.themeConfig.uniqueOpened"
         :collapse-transition="false"
         class="el-menu-vertical-demo"
+        mode="horizontal"
         :collapse="isCollapse">
         <SubMenu :menuList="permission_routes"/>
       </el-menu>

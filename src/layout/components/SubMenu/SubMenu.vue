@@ -1,6 +1,6 @@
 <template>
   <template v-for="subItem in menuList" :key="subItem.path">
-    <template v-if="!subItem.hideen">
+    <template v-if="!subItem.hidden">
       <template v-if="!subItem.alwaysShow && hasOneChild(subItem.children, subItem)">
         <MenuItem :subItem="hasOneChild(subItem.children, subItem)" />
       </template>

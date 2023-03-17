@@ -44,12 +44,14 @@ const drawer = computed({
     return settingStore.themeConfig.showSetting
   },
   set () {
-    changeSwitch('type', !settingStore.themeConfig.showSetting)
+    changeSwitch('showSetting', !settingStore.themeConfig.showSetting)
   }
 })
-const changeSwitch = (type, val) => {
-  settingStore.setThemeConfig({ type, val })
-  if (type === 'mode') {}
+const changeSwitch = (key, val) => {
+  console.log('type, val', key, val, settingStore)
+  settingStore.setThemeConfig({ key, val })
+  console.log({key, val}, key === 'mode')
+  // if (type === 'mode') {}
 }
 </script>
 

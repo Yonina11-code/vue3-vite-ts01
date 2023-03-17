@@ -24,7 +24,7 @@ export const useSettingsStore = defineStore({
     }
   }),
   actions: {
-    setThemeConfig({ key, val }) {
+    setThemeConfig({key, val}) {
       this.themeConfig[key] = val
     },
     setCollapse (value: boolean) { // 切换collapse
