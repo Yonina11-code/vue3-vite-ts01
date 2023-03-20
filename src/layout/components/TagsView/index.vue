@@ -97,5 +97,43 @@ const removeTab = () => {
 </script>
 
 <style lang="scss" scoped>
+  .m-tags-view {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    background: white;
+    .right-btn {
+      height: 100%;
+      flex-shrink: 0;
+    }
+  }
+  .tags-view {
+    flex: 1;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
 
+  .tags-view {
+    .el-tabs--card :deep(.el-tabs__header) {
+      box-sizing: border-box;
+      height: 40px;
+      padding: 0 10px;
+      margin: 0;
+    }
+    :deep(.el-tabs) {
+      .el-tabs__nav {
+        border: none;
+      }
+      .el-tabs__header .el-tabs__item {
+        border: none;
+        color: #cccccc;
+      }
+      .el-tabs__header .el-tabs__item.is-active {
+        color: $primaryColor;
+        border-bottom: 2px solid $primaryColor;
+      }
+    }
+  }
 </style>

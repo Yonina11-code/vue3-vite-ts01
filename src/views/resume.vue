@@ -1,10 +1,12 @@
 <template>
-<div ref="content" class="resume-content">
-  <!-- <h1>tetet</h1> -->
-  <base-msg01 :data="data.baseMsg"></base-msg01>
-  <title01 :config="optionConfig.title" name="搜狗拼音"></title01>
-</div>
-<el-button @click="handlePrint">打印</el-button>
+  <PageWrapLayout>
+    <div ref="content" class="resume-content">
+      <!-- <h1>tetet</h1> -->
+      <base-msg01 :data="data.baseMsg"></base-msg01>
+      <title01 :config="optionConfig.title" name="搜狗拼音"></title01>
+    </div>
+    <el-button @click="handlePrint">打印</el-button>
+  </PageWrapLayout>
 </template>
 
 <script lang="ts" setup>

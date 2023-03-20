@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="sidebar-container" :class="{ 'has-logo': themeConfig.showLogo }">
     <Logo :isCollapse="isCollapse" v-if="themeConfig.showLogo" />
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
@@ -9,7 +9,6 @@
         :unique-opened="SettingStore.themeConfig.uniqueOpened"
         :collapse-transition="false"
         class="el-menu-vertical-demo"
-        mode="horizontal"
         :collapse="isCollapse">
         <SubMenu :menuList="permission_routes"/>
       </el-menu>

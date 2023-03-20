@@ -1,6 +1,7 @@
 <template>
   <template v-for="subItem in menuList" :key="subItem.path">
     <template v-if="!subItem.hidden">
+      {{subItem.hidden}}
       <template v-if="!subItem.alwaysShow && hasOneChild(subItem.children, subItem)">
         <MenuItem :subItem="hasOneChild(subItem.children, subItem)" />
       </template>
@@ -26,6 +27,7 @@ let props = defineProps({
     default: () => []
   }
 })
+console.log('props', props.menuList)
 const hasOneChild = (children = [], parent) => {
   const showingChildren = children.filter((item) => {
     // 过滤掉需要隐藏的菜单

@@ -1,8 +1,8 @@
 <template>
   <!-- 纵向布局 -->
   <Siddebar></Siddebar>
-  <div>
-    <HeaderVertical></HeaderVertical>
+  <div class="main-container">
+    <HeaderVertical />
     <Main></Main>
     <Footer></Footer>
   </div>

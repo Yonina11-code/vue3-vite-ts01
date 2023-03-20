@@ -41,10 +41,11 @@ export const constantRoutes: Array<RouteRecordRaw & extendRoute> = [
     meta: { title: '登录' }
   },
   {
-    path: '/about',
-    name: 'about',
-    component: () => import('../views/AboutView.vue')
-  }
+    path: '/404',
+    name: '404',
+    component: () => import('@/views/errorPages/404.vue'),
+    hidden: true,
+  },
 
 
 ]

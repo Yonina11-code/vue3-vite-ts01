@@ -1,10 +1,11 @@
 <template>
   <div>
     <el-drawer v-model="drawer" title="主题配置" size="300px">
-      <div class="theme-item">
-        <label>导航栏布局</label>
+      <div class="theme-item" v-for="(item, index) in options" :index="item.prop">
+        <label>{{item.label}}</label>
         <el-select
-          v-model="layout"
+          v-if="item.type === 'select'"
+          v-model="form[item.prop]"
           placeholder="请选择"
           style="width: 150px"
           @change="(val) => changeSwitch('mode', val)">
@@ -15,13 +16,15 @@
             :value="direct.value"
           ></el-option>
         </el-select>
+        <el-color-picker v-model="form[item.prop]" v-if="item.type === 'color'"></el-color-picker>
+        <el-switch v-model="form[item.prop]" v-if="item.type === 'switch'" @change="(val) => changeSwitch(item.prop, val)"/>
       </div>
     </el-drawer>
   </div>
 </template>
 
-<script setup>
-import { ref, computed } from 'vue'
+<script setup lang="ts">
+import { ref, computed, reactive } from 'vue'
 import { useSettingsStore } from '@/pinia/modules/setting'
 const settingStore = useSettingsStore()
 const directionDict = ref([
@@ -38,7 +41,7 @@ const directionDict = ref([
     value: 'columns'
   }
 ])
-const layout = ref('')
+const layout = ref(settingStore.themeConfig.mode) // 布局
 const drawer = computed({
   get () {
     return settingStore.themeConfig.showSetting
@@ -48,11 +51,81 @@ const drawer = computed({
   }
 })
 const changeSwitch = (key, val) => {
-  console.log('type, val', key, val, settingStore)
+  console.log('key, val', key, val)
   settingStore.setThemeConfig({ key, val })
-  console.log({key, val}, key === 'mode')
-  // if (type === 'mode') {}
+  // if (key === 'mode') {}
+  if (key === 'isDark') {
+    const body = document.documentElement as HTMLElement
+    if (settingStore.themeConfig.isDark) body.setAttribute('class', 'dark')
+    else body.setAttribute('class', '')
+  } else if (key === 'gray' || key === 'weak') {
+    const body = document.documentElement as HTMLElement
+    if (!val) return body.setAttribute('style', '')
+    if (key === 'gray') body.setAttribute('style', 'filter: grayscale(1)')
+    if (key === 'weak') body.setAttribute('style', 'filter: invert(80%)')
+  }
 }
+
+const form = reactive({
+  primary: settingStore.themeConfig.primary, // 颜色
+  gray: settingStore.themeConfig.gray,
+  weak: settingStore.themeConfig.weak,
+  showLogo: settingStore.themeConfig.showLogo,
+  showTag: settingStore.themeConfig.showTag,
+  uniqueOpened: settingStore.themeConfig.uniqueOpened,
+  fixedHeader: settingStore.themeConfig.fixedHeader,
+  isDark: settingStore.themeConfig.isDark
+})
+// const fixedHeader = ref(settingStore.themeConfig.fixedHeader)
+// const isDark = ref(settingStore.themeConfig.isDark)
+const options = ref([
+  {
+    label: '导航栏布局',
+    prop: 'layout',
+    type: 'select',
+    dic: directionDict
+  },
+  {
+    label: '主题颜色',
+    prop: 'primary',
+    type: 'color',
+  },
+  {
+    label: '暗黑模式',
+    prop: 'isDark',
+    type: 'switch',
+  },
+  {
+    label: '灰色模式',
+    prop: 'gray',
+    type: 'switch',
+  },
+  {
+    label: '色弱模式',
+    prop: 'weak',
+    type: 'switch',
+  },
+  {
+    label: '标签栏',
+    prop: 'showTag',
+    type: 'switch',
+  },
+  {
+    label: '侧边栏LOGO',
+    prop: 'showLogo',
+    type: 'switch',
+  },
+  {
+    label: '保持一个子菜单的展开',
+    prop: 'uniqueOpened',
+    type: 'switch',
+  },
+  {
+    label: '固定header',
+    prop: 'fixedHeader',
+    type: 'switch',
+  }
+])
 </script>
 
 <style lang="scss" scoped>
