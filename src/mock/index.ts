@@ -25,7 +25,8 @@ export default [
           'companyMsg|2-3': [
             {
               name: '@cname',
-              ctime: '@datetime-@datetime',
+              job: '@cname',
+              ctime: '@datetime',
             }
           ]
         }),

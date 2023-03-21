@@ -19,13 +19,13 @@ const props = defineProps({
 <style lang="less" scoped>
 .name {
   // text-align: center;
-  line-height: 15px;
-  margin: 10px 0;
-  &::after {
+  // line-height: 15px;
+  margin-bottom: 10px;
+  &::before {
     content: '';
     display: inline-block;
     width: 100%;
-    border-top: 1px solid;
+    border-bottom: 1px solid;
   }
 }
 </style>

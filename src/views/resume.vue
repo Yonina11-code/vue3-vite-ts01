@@ -1,17 +1,21 @@
 <template>
-  <PageWrapLayout>
-    <div ref="content" class="resume-content">
-      <!-- <h1>tetet</h1> -->
-      <base-msg01 :data="data.baseMsg"></base-msg01>
-      <title01 :config="optionConfig.title" name="搜狗拼音"></title01>
-    </div>
-    <el-button @click="handlePrint">打印</el-button>
-  </PageWrapLayout>
+  <!-- <PageWrapLayout> -->
+    <div ref="content" class="resume-content app-container">
+      <div class="app-container-inner">
+        <!-- <h1>tetet</h1> -->
+        <base-msg01 :data="data.baseMsg"></base-msg01>
+        <title01 :config="optionConfig.title" name="搜狗拼音"></title01>
+        <job01 v-for="item in data.companyMsg" :key="item.name" :data="item"></job01>
+      </div>
+      <el-button @click="handlePrint">打印</el-button>
+    <!-- </PageWrapLayout> -->
+      </div>
 </template>
 
 <script lang="ts" setup>
 import baseMsg01 from '@/components/baseMg/baseMsg01.vue'
-import title01 from '@/components/titles/title01.vue'
+import title01 from '@/components/titles/title01.vue' // 标题
+import job01 from '@/components/jobs/job01.vue'
 import api from '@/mock/index.ts'
 import { optionConfig } from '@/const/index.ts'
 import { reactive, ref } from 'vue'

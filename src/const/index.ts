@@ -1,7 +1,7 @@
 export const optionConfig = {
   title: {
     style: {
-      color: '#409eff',
+      color: '',
       fontWeight: 'bold'
     }
   }

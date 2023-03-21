@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import zhCn from 'element-plus/es/locale/lang/zh-cn';
 import { useSettingsStore } from '@/pinia/modules/setting';
@@ -27,6 +27,18 @@ resize()
 window.onresize = resize
 
 const SettingStore = useSettingsStore()
+watch(
+  () => SettingStore.themeConfig.isDark,
+  (val) => {
+    console.log('isDark', val)
+    const body = document.documentElement as HTMLElement
+    if (val) body.setAttribute('class', 'dark')
+    else body.setAttribute('class', '')
+  }, {
+    immediate: true
+  }
+)
+console.log('SettingStore', SettingStore)
 //  配置全局组件大小
 const globalComSize = computed((): string => SettingStore.themeConfig.globalComSize)
 </script>
