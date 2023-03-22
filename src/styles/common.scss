@@ -24,6 +24,10 @@ body{
   align-items: center;
   justify-content: space-between;
 }
+.flex-wrap {
+  @extend .flex-justify-between;
+  flex-wrap: wrap;
+}
 .flex-align-center {
   display: flex;
   align-items: center;
@@ -31,8 +35,8 @@ body{
 
 /* 移动端的时候由于屏幕变小隐藏头部导航栏 */
 @media screen and ( max-width: 540px ) {
-  .app-breadcrumb{
-    display: none!important;
+  .app-breadcrumb {
+    display: none !important;
   }
 }
 

@@ -22,13 +22,27 @@ export default [
             wechat: '@email',
             region: '@region'
           },
-          'companyMsg|2-3': [
+          'companyMsg|2-3': [ //
             {
               name: '@cname',
               job: '@cname',
               ctime: '@datetime',
+              'discription|2-3': ['@csentence']
             }
-          ]
+          ],
+          'skills|6-8': ['@ctitle'], // 技能
+          'experiences|4-6': [{ // 项目经验
+            name: '@ctitle', // 名称
+            // job: '@cname',
+            ctime: '@datetime', // 起止时间
+            discription: '@paragraph', // 项目描述
+            'mainSkill|4-7': '@ctitle',
+            'mainJobs|2-3': [
+              {
+
+              }
+            ]
+          }]
         }),
       }
     },
