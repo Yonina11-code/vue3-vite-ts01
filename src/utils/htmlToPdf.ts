@@ -1,19 +1,23 @@
 import html2Canvas from 'html2canvas'
 import JsPDF from 'jspdf'
-export const htmlToPdf = (htmlTitle: String, dots: any) => {
-  document.body.scrollTop = document.documentElement.scrollTop = 0
-  console.log('dots', dots)
+const A4_WIDTH: number = 592.28
+const A4_HEIGHT: number = 841.89
+export const htmlToPdf = (htmlTitle: String, dots as HTMLElement) => {
+  // document.body.scrollTop = document.documentElement.scrollTop = 0
+  console.log('dots', dots.innerWidth)
   html2Canvas(dots, {
     allowTaint: true, // 允许跨域图片
     // taintTest: false,
     useCORS: true,
     y: 0, // 对y轴进行裁切
     x: 0,
-    width: dots.width,
-    // dpi: window.devicePixelRatio * 4, // 将分辨率提高到特定的dpi 提高四倍
+    width: dots.clientWidth,
+    dpi: 144, // 将分辨率提高到特定的dpi 提高四倍
     scale: 4,
+    onrendered: function(canvas) {
+      document.body.appendChild(canvas)
+    }
   }).then(canvas => {
-    console.log('canvas', canvas.width, canvas.height, window)
     let contentWidth = canvas.width
     let contentHeight = canvas.height
     let pageHeight = (contentWidth / 595.28) * 841.89
@@ -21,8 +25,8 @@ export const htmlToPdf = (htmlTitle: String, dots: any) => {
     let position = 0
     let imgWidth = 595.28
     let imgHeight = (595.28 / contentWidth) * contentHeight
-    let pageData = canvas.toDataURL('image/jpeg', 1.0)
-    let PDF = new JsPDF('p', 'px', 'a4')
+    let pageData = canvas.toDataURL('image/jpeg', 2.0)
+    let PDF = new JsPDF('', 'pt', 'a4')
     if (leftHeight < pageHeight) {
       PDF.addImage(pageData, 'JPEG', 0, 0, imgWidth, imgHeight)
     } else {
@@ -37,6 +41,22 @@ export const htmlToPdf = (htmlTitle: String, dots: any) => {
     }
     PDF.save(htmlTitle + '.pdf')
   })
+}
+function isSplit (nodes, index, pageHeight) {
+  return nodes[index].offsetTop + nodes[index].offsetHeight < pageHeight && nodes[index + 1] && nodes[index + 1].offsetTop + nodes[index + 1].offsetHeight > pageHeight
+}
+/**
+* @description: 获取底部元素
+*/
+function getFooterElement (remainingHeight: number, fillingHeight: number = 85) {
+  let newNode = document.createElement('div')
+  newNode.style.background = '#ffffff'
+  newNode.style.width = 'calc(100% + 8px)'
+  newNode.style.marginLeft = '-4px'
+  newNode.style.marginBottom = '0px'
+  newNode.style.borderTop = '1px solid #7F7F7F'
+  newNode.style.height = (remainingHeight + fillingHeight) + 'px' // pdf截断需要一个空白位置
+  return newNode
 }
 
 // 批量导出多个页面数据在一张pdf里

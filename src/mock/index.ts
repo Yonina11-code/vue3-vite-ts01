@@ -35,14 +35,16 @@ export default [
             name: '@ctitle', // 名称
             // job: '@cname',
             ctime: '@datetime', // 起止时间
-            discription: '@paragraph', // 项目描述
-            'mainSkill|4-7': '@ctitle',
+            discription: '@cparagraph', // 项目描述
+            'mainSkill|4-7': ['@ctitle'],
             'mainJobs|2-3': [
               {
-
+                name: '@ctitle',
+                'descrip|2-3': ['@csentence']
               }
             ]
-          }]
+          }],
+          'extra': '@csentence'
         }),
       }
     },
