@@ -55,7 +55,6 @@ function getMsg () {
   data = api[0].response().data
 }
 function handlePrint () {
-  console.log('content', content.value.clientWidth)
   // htmlToPdf('test', content.value)
   outputPDF({
     element: content.value

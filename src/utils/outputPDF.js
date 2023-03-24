@@ -9,8 +9,10 @@ const A4_HEIGHT = 841.89;
 async function toCanvas (element, width) {
   // canvas元素
   const canvas = await html2canvas (element, {
-   // allowTaint: true, // 允许渲染跨域图片
+    allowTaint: true, // 允许渲染跨域图片
     scale: window.devicePixelRatio * 2,  // 增加清晰度
+    y: 0, // 对y轴进行裁切
+    x: 0,
     useCORS: true, // 允许跨域
     onrendered: function (canvas) {
       document.body.appendChild(canvas)
@@ -23,8 +25,7 @@ async function toCanvas (element, width) {
   // 高度转化为PDF的高度
   const height = (width / canvasWidth) * canvasHeight
   // 转化成图片Data
-  const canvasData = canvas.toDataURL('image/jpeg', 1.0)
-  //console.log(canvasData)
+  const canvasData = canvas.toDataURL('image/jpeg', 2.0)
   return { width, height, data: canvasData }
 }
 /**
@@ -36,7 +37,7 @@ async function toCanvas (element, width) {
  * @param {HTMLElement} param.header - 页眉dom元素
  * @param {HTMLElement} param.footer - 页脚dom元素
  */
-export async function outputPDF({ element, contentWidth = 550,
+export async function outputPDF({ element, contentWidth = 590,
   footer, header, filename = "测试A4分页.pdf" }) {
   if (!(element instanceof HTMLElement)) {
     return;
@@ -45,7 +46,7 @@ export async function outputPDF({ element, contentWidth = 550,
   const pdf = new jsPDF({
     unit: 'pt',
     format: 'a4',
-    orientation: 'p',
+    orientation: '',
   });
 
   // 一页的高度， 转换宽度为一页元素的宽度
@@ -68,14 +69,14 @@ export async function outputPDF({ element, contentWidth = 550,
   // }
 
   // 添加
-  function addImage(_x, _y, pdf, data, width, height) {
-    pdf.addImage(data, 'JPEG', _x, _y, width, height);
+  function addImage (_x, _y, pdf, data, width, height) {
+    pdf.addImage(data, 'JPEG', _x, _y, width, height)
   }
 
   // 增加空白遮挡
-  function addBlank(x, y, width, height, pdf) {
+  function addBlank (x, y, width, height, pdf) {
     pdf.setFillColor(255, 255, 255);
-    pdf.rect(x, y, Math.ceil(width), Math.ceil(height), 'F');
+    pdf.rect(x, y, Math.ceil(width), Math.ceil(height), 'F')
   }
   const tfooterHeight = 0
   const theaderHeight = 0
@@ -88,7 +89,7 @@ export async function outputPDF({ element, contentWidth = 550,
   // 距离PDF左边的距离，/ 2 表示居中
   const baseX = (A4_WIDTH - contentWidth) / 2        // 预留空间给左边
   // 距离PDF 页眉和页脚的间距， 留白留空
-  const baseY = 15
+  const baseY = 10
 
   // 除去页头、页眉、还有内容与两者之间的间距后 每页内容的实际高度
   const originalPageHeight = (A4_HEIGHT - tfooterHeight - theaderHeight - 2 * baseY)
@@ -106,13 +107,13 @@ export async function outputPDF({ element, contentWidth = 550,
   // 通过遍历offsetParant获取距离顶端元素的高度值
   function getElementTop(element) {
     let actualTop = element.offsetTop
-    let current = element.offsetParent
-
-    while (current && current !== null) {
+    let current = element.parentNode
+    console.log('element', element, actualTop, current)
+    while (current && current.className !== 'app-container-inner') { // app-container-inner 是主要内容的开头·
       actualTop += current.offsetTop
-      current = current.offsetParent
+      current = current.parentNode
     }
-    return actualTop
+    return actualTop || 0
   }
 
 
@@ -139,7 +140,7 @@ export async function outputPDF({ element, contentWidth = 550,
       const top = rate * (offsetTop)
 
       // 对于需要进行分页且内部存在需要分页（即不属于深度终点）的元素进行处理
-      if (isDivideInside) {
+      if (isDivideInside) { // 存在页头页尾元素
         // 执行位置更新操作
         updatePos(rate * offsetHeight, top, one)
         // 执行深度遍历操作
@@ -183,7 +184,8 @@ export async function outputPDF({ element, contentWidth = 550,
   // 普通元素更新位置的方法
   // 普通元素只需要考虑到是否到达了分页点，即当前距离顶部高度 - 上一个分页点的高度 大于 正常一页的高度，则需要载入分页点
   function updateNomalElPos(top) {
-    if (top - (pages.length > 0 ? pages[pages.length - 1] : 0) > originalPageHeight) {
+    console.log('updateNomalElPos', top)
+    if (top - (pages.length > 0 ? pages[pages.length - 1] : 0) >= originalPageHeight) {
       pages.push((pages.length > 0 ? pages[pages.length - 1] : 0) + originalPageHeight)
     }
   }
@@ -192,22 +194,22 @@ export async function outputPDF({ element, contentWidth = 550,
   // 需要考虑分页元素，则需要考虑两种情况
   // 1. 普通达顶情况，如上
   // 2. 当前距离顶部高度加上元素自身高度 大于 整页高度，则需要载入一个分页点
-  function updatePos(eheight, top) {
+  function updatePos(eheight, top, ele) {
     // 如果高度已经超过当前页，则证明可以分页了
+    console.log('top + eheight - (pages.length > 0 ? pages[pages.length - 1] : 0', top, eheight, originalPageHeight, pages?.length - 1)
     if (top - (pages.length > 0 ? pages[pages.length - 1] : 0) >= originalPageHeight) {
       pages.push((pages.length > 0 ? pages[pages.length - 1] : 0) + originalPageHeight)
     }
     // 若 距离当前页顶部的高度 加上元素自身的高度 大于 一页内容的高度, 则证明元素跨页，将当前高度作为分页位置
-    else if ((top + eheight - (pages.length > 0 ? pages[pages.length - 1] : 0) > originalPageHeight) && (top != (pages.length > 0 ? pages[pages.length - 1] : 0))) {
+    else if (((top + eheight - (pages.length > 0 ? pages[pages.length - 1] : 0)) > (originalPageHeight - 30)) && (top != (pages.length > 0 ? pages[pages.length - 1] : 0))) {
       pages.push(top);
     }
   }
-
   // 深度遍历节点的方法
-  traversingNodes(element.childNodes);
+  traversingNodes(element.childNodes)
   // 可能会存在遍历到底部元素为深度节点，可能存在最后一页位置未截取到的情况
-  if (pages[pages.length - 1] + originalPageHeight < height) {
-    pages.push(pages[pages.length - 1] + originalPageHeight);
+  if (pages[pages.length - 1] + originalPageHeight < (height - 10 )) {
+    pages.push(pages[pages.length - 1] + originalPageHeight)
   }
   //console.log({ pages, contentWidth, width,height })
 
