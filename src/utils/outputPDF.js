@@ -218,7 +218,6 @@ export async function outputPDF({ element, contentWidth = 590,
 
   // 根据分页位置 开始分页
   for (let i = 0; i < pages.length; ++i) {
-    console.log('pages', pages)
     ElMessage.success(`共${pages.length}页， 生成第${i + 1}页`)
     // 根据分页位置新增图片
     addImage(baseX, baseY + theaderHeight - pages[i], pdf, data, width, height)
