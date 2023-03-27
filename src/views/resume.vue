@@ -64,8 +64,8 @@ function handlePrint () {
 
 <style lang="less" scoped>
 .resume-content {
-  padding: 20px;
-  width: 1240px;
+  // padding: 20px;
+  width: 592.28*2px;
   page-break-inside: avoid;
 }
 .skill {

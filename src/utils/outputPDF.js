@@ -13,6 +13,7 @@ async function toCanvas (element, width) {
     scale: window.devicePixelRatio * 2,  // 增加清晰度
     y: 0, // 对y轴进行裁切
     x: 0,
+    width: element.clientWidth,
     useCORS: true, // 允许跨域
     onrendered: function (canvas) {
       document.body.appendChild(canvas)
@@ -25,7 +26,7 @@ async function toCanvas (element, width) {
   // 高度转化为PDF的高度
   const height = (width / canvasWidth) * canvasHeight
   // 转化成图片Data
-  const canvasData = canvas.toDataURL('image/jpeg', 2.0)
+  const canvasData = canvas.toDataURL('image/jpeg', 1.0)
   return { width, height, data: canvasData }
 }
 /**
@@ -93,26 +94,26 @@ export async function outputPDF({ element, contentWidth = 590,
 
   // 除去页头、页眉、还有内容与两者之间的间距后 每页内容的实际高度
   const originalPageHeight = (A4_HEIGHT - tfooterHeight - theaderHeight - 2 * baseY)
-
+  console.log('originalPageHeight', originalPageHeight)
   // 元素在网页页面的宽度
   const elementWidth = element.offsetWidth
 
   // PDF内容宽度 和 在HTML中宽度 的比， 用于将 元素在网页的高度 转化为 PDF内容内的高度， 将 元素距离网页顶部的高度  转化为 距离Canvas顶部的高度
-  const rate = contentWidth / elementWidth
-
+  const rate = A4_WIDTH / elementWidth
+  console.log('rate', A4_WIDTH, elementWidth, rate)
   // 每一页的分页坐标， PDF高度， 初始值为根元素距离顶部的距离
   const pages = [rate * getElementTop(element)]
 
   // 获取元素距离网页顶部的距离
   // 通过遍历offsetParant获取距离顶端元素的高度值
   function getElementTop(element) {
-    let actualTop = element.offsetTop
-    let current = element.parentNode
-    console.log('element', element, actualTop, current)
+    let actualTop = element.offsetTop || 0
+    let current = element.parentElement
     while (current && current.className !== 'app-container-inner') { // app-container-inner 是主要内容的开头·
-      actualTop += current.offsetTop
-      current = current.parentNode
+      actualTop = current.offsetTop || 0
+      current = current.parentElement
     }
+    console.log('element', element, actualTop, current)
     return actualTop || 0
   }
 
@@ -134,10 +135,10 @@ export async function outputPDF({ element, contentWidth = 590,
       let { offsetHeight } = one
       // 计算出最终高度
       let offsetTop = getElementTop(one)
-
       // dom转换后距离顶部的高度
       // 转换成canvas高度
       const top = rate * (offsetTop)
+      console.log('offsetTop', offsetTop, top, rate)
 
       // 对于需要进行分页且内部存在需要分页（即不属于深度终点）的元素进行处理
       if (isDivideInside) { // 存在页头页尾元素
@@ -184,8 +185,8 @@ export async function outputPDF({ element, contentWidth = 590,
   // 普通元素更新位置的方法
   // 普通元素只需要考虑到是否到达了分页点，即当前距离顶部高度 - 上一个分页点的高度 大于 正常一页的高度，则需要载入分页点
   function updateNomalElPos(top) {
-    console.log('updateNomalElPos', top)
     if (top - (pages.length > 0 ? pages[pages.length - 1] : 0) >= originalPageHeight) {
+      console.log('updateNomalElPos', top, originalPageHeight, pages)
       pages.push((pages.length > 0 ? pages[pages.length - 1] : 0) + originalPageHeight)
     }
   }
@@ -197,7 +198,7 @@ export async function outputPDF({ element, contentWidth = 590,
   function updatePos(eheight, top, ele) {
     // 如果高度已经超过当前页，则证明可以分页了
     console.log('top + eheight - (pages.length > 0 ? pages[pages.length - 1] : 0', top, eheight, originalPageHeight, pages?.length - 1)
-    if (top - (pages.length > 0 ? pages[pages.length - 1] : 0) >= originalPageHeight) {
+    if (top - (pages.length > 0 ? pages[pages.length - 1] : 0) >= (originalPageHeight - 10)) {
       pages.push((pages.length > 0 ? pages[pages.length - 1] : 0) + originalPageHeight)
     }
     // 若 距离当前页顶部的高度 加上元素自身的高度 大于 一页内容的高度, 则证明元素跨页，将当前高度作为分页位置
@@ -217,6 +218,7 @@ export async function outputPDF({ element, contentWidth = 590,
 
   // 根据分页位置 开始分页
   for (let i = 0; i < pages.length; ++i) {
+    console.log('pages', pages)
     ElMessage.success(`共${pages.length}页， 生成第${i + 1}页`)
     // 根据分页位置新增图片
     addImage(baseX, baseY + theaderHeight - pages[i], pdf, data, width, height)

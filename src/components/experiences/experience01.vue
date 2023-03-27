@@ -4,11 +4,13 @@
   </div>
   <div class="setence">
     <span>{{options.discription.name}}：</span>
-    {{data[options.discription.prop]}}
+    <span>
+      {{data[options.discription.prop]}}
+    </span>
   </div>
   <div class="setence">
     <span>{{options.mainSkill.name}}：</span>
-    {{data[options.mainSkill.prop].join('、')}}
+    <span>{{data[options.mainSkill.prop].join('、')}}</span>
   </div>
   <div class="setence" v-for="mainJobs in data.mainJobs" :key="mainJobs.name">
     <span>{{mainJobs.name}}：</span>
