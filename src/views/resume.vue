@@ -31,7 +31,7 @@
       </div>
     <!-- </PageWrapLayout> -->
       </div>
-    <el-button @click="handlePrint">打印</el-button>
+    <el-button @click="handlePrint($event)">打印</el-button>
 </template>
 
 <script lang="ts" setup>
@@ -54,8 +54,9 @@ getMsg()
 function getMsg () {
   data = api[0].response().data
 }
-function handlePrint () {
+function handlePrint (color) {
   // htmlToPdf('test', content.value)
+  console.log('color', content.value)
   outputPDF({
     element: content.value
   })
@@ -67,6 +68,7 @@ function handlePrint () {
   // padding: 20px;
   width: 592.28*2px;
   page-break-inside: avoid;
+  background-color: var(--color-background);
 }
 .skill {
   width: 50%;

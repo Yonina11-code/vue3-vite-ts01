@@ -94,13 +94,11 @@ export async function outputPDF({ element, contentWidth = 590,
 
   // 除去页头、页眉、还有内容与两者之间的间距后 每页内容的实际高度
   const originalPageHeight = (A4_HEIGHT - tfooterHeight - theaderHeight - 2 * baseY)
-  console.log('originalPageHeight', originalPageHeight)
   // 元素在网页页面的宽度
   const elementWidth = element.offsetWidth
 
   // PDF内容宽度 和 在HTML中宽度 的比， 用于将 元素在网页的高度 转化为 PDF内容内的高度， 将 元素距离网页顶部的高度  转化为 距离Canvas顶部的高度
   const rate = A4_WIDTH / elementWidth
-  console.log('rate', A4_WIDTH, elementWidth, rate)
   // 每一页的分页坐标， PDF高度， 初始值为根元素距离顶部的距离
   const pages = [rate * getElementTop(element)]
 
@@ -113,7 +111,6 @@ export async function outputPDF({ element, contentWidth = 590,
       actualTop = current.offsetTop || 0
       current = current.parentElement
     }
-    console.log('element', element, actualTop, current)
     return actualTop || 0
   }
 
@@ -138,7 +135,6 @@ export async function outputPDF({ element, contentWidth = 590,
       // dom转换后距离顶部的高度
       // 转换成canvas高度
       const top = rate * (offsetTop)
-      console.log('offsetTop', offsetTop, top, rate)
 
       // 对于需要进行分页且内部存在需要分页（即不属于深度终点）的元素进行处理
       if (isDivideInside) { // 存在页头页尾元素
@@ -186,7 +182,6 @@ export async function outputPDF({ element, contentWidth = 590,
   // 普通元素只需要考虑到是否到达了分页点，即当前距离顶部高度 - 上一个分页点的高度 大于 正常一页的高度，则需要载入分页点
   function updateNomalElPos(top) {
     if (top - (pages.length > 0 ? pages[pages.length - 1] : 0) >= originalPageHeight) {
-      console.log('updateNomalElPos', top, originalPageHeight, pages)
       pages.push((pages.length > 0 ? pages[pages.length - 1] : 0) + originalPageHeight)
     }
   }
@@ -197,7 +192,6 @@ export async function outputPDF({ element, contentWidth = 590,
   // 2. 当前距离顶部高度加上元素自身高度 大于 整页高度，则需要载入一个分页点
   function updatePos(eheight, top, ele) {
     // 如果高度已经超过当前页，则证明可以分页了
-    console.log('top + eheight - (pages.length > 0 ? pages[pages.length - 1] : 0', top, eheight, originalPageHeight, pages?.length - 1)
     if (top - (pages.length > 0 ? pages[pages.length - 1] : 0) >= (originalPageHeight - 10)) {
       pages.push((pages.length > 0 ? pages[pages.length - 1] : 0) + originalPageHeight)
     }
