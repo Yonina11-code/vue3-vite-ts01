@@ -1,6 +1,6 @@
 <template>
   <!-- <PageWrapLayout> -->
-    <div ref="content" class="resume-content app-container">
+    <div id="pdfDom" class="resume-content app-container">
       <div class="app-container-inner">
         <template v-for="block in optionConfig.columns" :key="block.name">
           <!-- 基本信息 -->
@@ -31,7 +31,7 @@
       </div>
     <!-- </PageWrapLayout> -->
       </div>
-    <el-button @click="handlePrint">打印</el-button>
+    <el-button @click="pdfFunc">打印</el-button>
 </template>
 
 <script lang="ts" setup>
@@ -45,6 +45,8 @@ import { optionConfig } from '@/const/index.ts'
 import { reactive, ref } from 'vue'
 import { htmlToPdf, downloadPDF } from '@/utils/htmlToPdf.ts'
 import { outputPDF } from '@/utils/outputPDF.js'
+import test from '@/utils/test.js'
+
 let data = reactive({
   name: 'test0101'
 })
@@ -59,6 +61,10 @@ function handlePrint () {
   outputPDF({
     element: content.value
   })
+}
+const pdfFunc = () => {
+	// 调用htmlToPdf工具函数
+  test.getPdf('test.pdf')
 }
 </script>
 
