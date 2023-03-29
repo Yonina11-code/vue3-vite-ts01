@@ -14,6 +14,16 @@ body{
 
 
 /* 常用 flex */
+.flex-start {
+  display: flex;
+  align-items: flex-start;
+}
+.flex-start-center {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+}
 .flex-center {
   display: flex;
   align-items: center;
@@ -31,6 +41,12 @@ body{
 .flex-align-center {
   display: flex;
   align-items: center;
+}
+.flex-column-start {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 /* 移动端的时候由于屏幕变小隐藏头部导航栏 */

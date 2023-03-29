@@ -22,7 +22,9 @@
   .m-tool-right {
     display: flex;
     align-items: center;
+    height: 100%;
     .item-children {
+      display: flex;
       margin-right: 22px;
     }
   }

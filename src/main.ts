@@ -1,6 +1,8 @@
 import { createApp } from 'vue'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+import Avue from '@smallwei/avue'
+import '@smallwei/avue/lib/index.css';
 import App from './App.vue'
 import router from './router'
 // 权限路由
@@ -17,6 +19,7 @@ const app = createApp(App)
 app.component('PageWrapLayout', PageWrapLayout)
 app.use(ElementPlus)
 app.use(pinia)
+app.use(Avue)
 app.use(router)
 
 app.mount('#app')
