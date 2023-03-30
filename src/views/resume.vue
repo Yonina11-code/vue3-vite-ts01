@@ -1,40 +1,45 @@
 <template>
   <div class="flex-start">
     <div>
+      <div>
+        <el-button @click="handlePrint()">打印</el-button>
+        <el-button @click="handleEdit()">编辑</el-button>
+      </div>
       <div ref="content" class="resume-content app-container">
         <div class="app-container-inner">
-          <template v-for="block in optionConfig.columns" :key="block.name">
+          <template v-for="block in optionConfig.group" :key="block.label">
             <!-- 基本信息 -->
             <base-msg01 v-if="block.type === 'base'" :data="data[block.prop]"></base-msg01>
             <template v-else-if="block.type === 'skill'">
               <!-- 专业技能 -->
-              <title01 :config="optionConfig.title" :name="block.name"></title01>
+              <title01 :config="optionConfig.title" :name="block.label"></title01>
               <div class="flex-wrap">
                 <description01 class="skill" v-for="des in data[block.prop]" :key="des" :data="des"></description01>
               </div>
             </template>
             <template v-else-if="block.type === 'job'">
               <!-- 工作经验 -->
-              <title01 :config="optionConfig.title" :name="block.name"></title01>
-              <job01 v-for="item in data[block.prop]" :key="item.name" :data="item"></job01>
+              <title01 :config="optionConfig.title" :name="block.label"></title01>
+              <job01 v-for="item in data[block.prop]" :key="item.label" :data="item"></job01>
             </template>
             <template v-else-if="block.type === 'project'">
               <!-- 项目经验 -->
-              <title01 :config="optionConfig.title" :name="block.name"></title01>
-              <experience01 v-for="item in data[block.prop]" :key="item.name" :data="item" :options="block.items"></experience01>
+              <title01 :config="optionConfig.title" :name="block.label"></title01>
+              <experience01 v-for="item in data[block.prop]" :key="item.label" :data="item" :options="block.column"></experience01>
             </template>
             <template v-else-if="block.type === 'self'">
               <!-- 自我评价 -->
-              <title01 :config="optionConfig.title" :name="block.name"></title01>
+              <title01 :config="optionConfig.title" :name="block.label"></title01>
               <div>{{data[block.prop]}}</div>
             </template>
           </template>
         </div>
         </div>
-      <el-button @click="handlePrint()">打印</el-button>
-      <el-button @click="handlePrint()">编辑</el-button>
     </div>
     <SysBaseMsg />
+    <el-dialog v-model="dialogVisible" fullscreen>
+      <avue-form :option="optionConfig"></avue-form>
+    </el-dialog>
   </div>
 </template>
 
@@ -53,18 +58,25 @@ import { outputPDF } from '@/utils/outputPDF.js'
 let data = reactive({
   name: 'test0101'
 })
-let content = ref()
+let content = ref() // 打印dom
+let dialogVisible = ref(false)
 getMsg()
 // 获取基本数据
 function getMsg () {
   data = api[0].response().data
 }
+// 打印
 function handlePrint () {
   // htmlToPdf('test', content.value)
   console.log('color', content.value)
   outputPDF({
     element: content.value
   })
+}
+// 编辑
+function handleEdit () {
+  dialogVisible.value = true
+  console.log('dialogVisible', dialogVisible)
 }
 </script>
 

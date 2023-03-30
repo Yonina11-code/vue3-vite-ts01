@@ -1,32 +1,45 @@
 <template>
   <div class="flex-justify-between">
-    <div v-for="row in options.rows">{{data[row.prop]}}</div>
+    <div v-for="row in rows">{{data[row.prop]}}</div>
   </div>
   <div class="setence">
-    <span>{{options.discription.name}}：</span>
+    <span>{{discription?.label}}：</span>
     <span>
-      {{data[options.discription.prop]}}
+      {{data[discription?.prop]}}
     </span>
   </div>
   <div class="setence">
-    <span>{{options.mainSkill.name}}：</span>
-    <span>{{data[options.mainSkill.prop].join('、')}}</span>
+    <span>{{mainSkill?.label}}：</span>
+    <span>{{data[mainSkill?.prop]?.join('、')}}</span>
   </div>
-  <div class="setence" v-for="mainJobs in data.mainJobs" :key="mainJobs.name">
-    <span>{{mainJobs.name}}：</span>
+  <div class="setence" v-for="mainJobs in data.mainJobs" :key="mainJobs.label">
+    <span>{{mainJobs.label}}：</span>
     <p class="des" v-for="des in mainJobs.descrip" :key="des">{{des}}</p>
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 const props = defineProps({
   options: {
-    type: Object,
-    default: () => {}
+    type: Array,
+    default: () => []
   },
   data: {
     type: Object,
     default: () => {}
+  },
+  computed: {
+    rows () {
+      return options.filter(item => item.tip === 'row')
+    },
+    discription () {
+      console.log('options', options)
+      return options.filter(item => item.tip === 'discription')[0] || {}
+    },
+    mainSkill () {
+      return options.filter(item => item.tip === 'mainSkill')[0] || {}
+    }
   }
 })
 </script>

@@ -1,4 +1,6 @@
 export const optionConfig = {
+  emptyBtn: false,
+  detail: true,
   title: {
     style: {
       color: '',
@@ -6,75 +8,76 @@ export const optionConfig = {
     }
   },
   components: 'resume01',
-  columns: [
+  group: [
     {
-      name: '个人基本信息',
+      label: '个人基本信息',
       type: 'base',
       prop: 'baseMsg',
     },
     {
-      name: '工作经验',
+      label: '工作经验',
       prop: 'companyMsg',
       type: 'job',
-      items: {
-        rows: [{ // name不展示
-          name: '公司名称',
-          prop: 'name'
+      column: [{ // name不展示
+          label: '公司名称',
+          prop: 'label',
+          tip: 'row'
         }, {
-          name: '职位名称',
-          prop: 'job'
+          label: '职位名称',
+          prop: 'job',
+          tip: 'row'
         }, {
-          name: '起始时间',
-          prop: 'ctime'
-        }],
-        des: {
-          name: '主要功能',
-          prop: 'discription'
+          label: '起始时间',
+          prop: 'ctime',
+          tip: 'row'
+        },{
+          label: '主要功能',
+          prop: 'discription',
+          tip: 'discription'
         }
-      }
+      ]
     },
     {
-      name: '专业技能',
+      label: '专业技能',
       prop: 'skills',
       type: 'skill'
     },
     {
-      name: '项目经验',
+      label: '项目经验',
       prop: 'experiences',
       type: 'project',
-      items: {
-        rows: [
-          {
-            name: '项目名称',
-            prop: 'name'
-          },
-          {
-            name: '起始时间',
-            prop: 'ctime'
-          }
-        ],
-        discription: {
-          name: '项目描述',
-          prop: 'discription'
-        },
-        mainSkill: {
-          name: '主要技术',
-          prop: 'mainSkill'
-        },
-        mainJobs: {
-          name: '主要工作',
+      column: [
+        {
+          label: '项目名称',
+          prop: 'name',
+          tip: 'rows'
+        }, {
+          label: '起始时间',
+          type: 'date',
+          prop: 'ctime',
+          tip: 'rows'
+        }, {
+        label: '项目描述',
+        prop: 'discription',
+        tip: 'discription'
+        }, {
+          label: '主要技术',
+          prop: 'mainSkill',
+          tip: 'mainSkill'
+        }, {
+          label: '主要工作',
           prop: 'mainJob',
+          tip: 'mainJob',
           column: {
             title: '主要工作分支',
-            name: 'name',
+            label: 'name',
             prop: 'descrip'
           }
         }
-      }
-
+      ]
     },
     {
-      name: '自我评价',
+      label: '自我评价',
       type: 'self',
       prop: 'extra'
     }
