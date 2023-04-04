@@ -12,7 +12,7 @@
     <span>{{mainSkill?.label}}：</span>
     <span>{{data[mainSkill?.prop]?.join('、')}}</span>
   </div>
-  <div class="setence" v-for="mainJobs in data.mainJobs" :key="mainJobs.label">
+  <div class="setence" v-for="mainJobs in data.mainJob" :key="mainJobs.label">
     <span>{{mainJobs.label}}：</span>
     <p class="des" v-for="des in mainJobs.descrip" :key="des">{{des}}</p>
   </div>
@@ -20,28 +20,26 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-const props = defineProps({
-  options: {
-    type: Array,
-    default: () => []
-  },
-  data: {
-    type: Object,
-    default: () => {}
-  },
-  computed: {
-    rows () {
-      return options.filter(item => item.tip === 'row')
+  const props = defineProps({
+    options: {
+      type: Array,
+      default: () => []
     },
-    discription () {
-      console.log('options', options)
-      return options.filter(item => item.tip === 'discription')[0] || {}
+    data: {
+      type: Object,
+      default: () => {}
     },
-    mainSkill () {
-      return options.filter(item => item.tip === 'mainSkill')[0] || {}
-    }
-  }
-})
+  })
+  const rows = computed(() =>{
+    return props.options.filter(item => item.tip === 'rows')
+  })
+  const discription = computed(() => {
+    console.log('options', props.options)
+    return props.options.filter(item => item.tip === 'discription')[0] || {}
+  })
+  const mainSkill = computed(() => {
+    return props.options.filter(item => item.tip === 'mainSkill')[0] || {}
+  })
 </script>
 
 <style lang="scss" scoped>

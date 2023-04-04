@@ -38,7 +38,7 @@
     </div>
     <SysBaseMsg />
     <el-dialog v-model="dialogVisible" fullscreen>
-      <avue-form :option="optionConfig"></avue-form>
+      <avue-form :option="optionConfig" v-model="form"></avue-form>
     </el-dialog>
   </div>
 </template>

@@ -57,9 +57,9 @@ export const optionConfig = {
           prop: 'ctime',
           tip: 'rows'
         }, {
-        label: '项目描述',
-        prop: 'discription',
-        tip: 'discription'
+          label: '项目描述',
+          prop: 'discription',
+          tip: 'discription'
         }, {
           label: '主要技术',
           prop: 'mainSkill',
