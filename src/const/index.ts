@@ -1,6 +1,8 @@
 export const optionConfig = {
-  emptyBtn: false,
-  detail: true,
+  menuBtn: false,
+  // detail: true,
+  disabled: false,
+  span: 6,
   title: {
     style: {
       color: '',
@@ -11,41 +13,113 @@ export const optionConfig = {
   group: [
     {
       label: '个人基本信息',
-      type: 'base',
+      blockType: 'base',
+      disabled: false,
+      column: [
+        {
+          label: '姓名',
+          prop: 'name',
+          rules: [
+            {
+              required: true,
+              trigger: 'blur',
+              message: '请输入姓名'
+            }
+          ]
+        },
+        {
+          label: '意向岗位',
+          prop: 'like',
+          rules: [
+            {
+              required: true,
+              trigger: 'blur',
+              message: '请输入意向岗位'
+            }
+          ]
+        },
+        {
+          label: '工作年限',
+          prop: 'workTime',
+          type: 'number',
+          append: '年',
+          rules: [
+            {
+              required: true,
+              trigger: 'blur',
+              message: '请输入工作年限'
+            }
+          ]
+        },
+        {
+          label: '年龄',
+          prop: 'like'
+        },
+        {
+          label: '意向城市',
+          prop: 'city'
+        },
+        {
+          label: '电话号码',
+          prop: 'phone',
+          rules: [
+            {
+              required: true,
+              trigger: 'blur',
+              message: '请输入电话号码'
+            }
+          ]
+        },
+        {
+          label: '微信',
+          prop: 'wechat'
+        },
+        {
+          label: '头像',
+          prop: 'url',
+          type: 'upload',
+          listType: 'picture-img',
+        },
+      ],
       prop: 'baseMsg',
     },
     {
       label: '工作经验',
       prop: 'companyMsg',
-      type: 'job',
+      blockType: 'job',
+      type: 'dynamic',
+      disabled: false,
       column: [{ // name不展示
-          label: '公司名称',
-          prop: 'label',
-          tip: 'row'
-        }, {
-          label: '职位名称',
-          prop: 'job',
-          tip: 'row'
-        }, {
-          label: '起始时间',
-          prop: 'ctime',
-          tip: 'row'
-        },{
-          label: '主要功能',
-          prop: 'discription',
-          tip: 'discription'
-        }
+        label: '公司名称',
+        prop: 'label',
+        tip: 'row'
+      }, {
+        label: '职位名称',
+        prop: 'job',
+        tip: 'row'
+      }, {
+        label: '起始时间',
+        prop: 'ctime',
+        type: 'daterange',
+        tip: 'row'
+      }, {
+        label: '主要功能',
+        prop: 'discription',
+        span: 24,
+        type: 'textarea',
+        tip: 'discription'
+      }
       ]
     },
     {
       label: '专业技能',
       prop: 'skills',
-      type: 'skill'
+      blockType: 'skill'
     },
     {
       label: '项目经验',
       prop: 'experiences',
-      type: 'project',
+      blockType: 'project',
       column: [
         {
           label: '项目名称',
@@ -78,8 +152,9 @@ export const optionConfig = {
     },
     {
       label: '自我评价',
-      type: 'self',
-      prop: 'extra'
+      blockType: 'self',
+      prop: 'extra',
+      type: 'textarea'
     }
   ]
 }

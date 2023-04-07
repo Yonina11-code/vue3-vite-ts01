@@ -9,25 +9,25 @@
         <div class="app-container-inner">
           <template v-for="block in optionConfig.group" :key="block.label">
             <!-- 基本信息 -->
-            <base-msg01 v-if="block.type === 'base'" :data="data[block.prop]"></base-msg01>
-            <template v-else-if="block.type === 'skill'">
+            <base-msg01 v-if="block.blockType === 'base'" :data="data[block.prop]"></base-msg01>
+            <template v-else-if="block.blockType === 'skill'">
               <!-- 专业技能 -->
               <title01 :config="optionConfig.title" :name="block.label"></title01>
               <div class="flex-wrap">
                 <description01 class="skill" v-for="des in data[block.prop]" :key="des" :data="des"></description01>
               </div>
             </template>
-            <template v-else-if="block.type === 'job'">
+            <template v-else-if="block.blockType === 'job'">
               <!-- 工作经验 -->
               <title01 :config="optionConfig.title" :name="block.label"></title01>
               <job01 v-for="item in data[block.prop]" :key="item.label" :data="item"></job01>
             </template>
-            <template v-else-if="block.type === 'project'">
+            <template v-else-if="block.blockType === 'project'">
               <!-- 项目经验 -->
               <title01 :config="optionConfig.title" :name="block.label"></title01>
               <experience01 v-for="item in data[block.prop]" :key="item.label" :data="item" :options="block.column"></experience01>
             </template>
-            <template v-else-if="block.type === 'self'">
+            <template v-else-if="block.blockType === 'self'">
               <!-- 自我评价 -->
               <title01 :config="optionConfig.title" :name="block.label"></title01>
               <div>{{data[block.prop]}}</div>
@@ -38,7 +38,7 @@
     </div>
     <SysBaseMsg />
     <el-dialog v-model="dialogVisible" fullscreen>
-      <avue-form :option="optionConfig" v-model="form"></avue-form>
+      <avue-form ref="form" :option="optionConfig" v-model="form"></avue-form>
     </el-dialog>
   </div>
 </template>
