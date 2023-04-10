@@ -7,7 +7,7 @@
       </div>
       <div ref="content" class="resume-content app-container">
         <div class="app-container-inner">
-          <template v-for="block in optionConfig.group" :key="block.label">
+          <template v-for="block in optionConfig.column" :key="block.label">
             <!-- 基本信息 -->
             <base-msg01 v-if="block.blockType === 'base'" :data="data[block.prop]"></base-msg01>
             <template v-else-if="block.blockType === 'skill'">

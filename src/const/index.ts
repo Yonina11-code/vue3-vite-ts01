@@ -10,7 +10,7 @@ export const optionConfig = {
     }
   },
   components: 'resume01',
-  group: [
+  column: [
     {
       label: '个人基本信息',
       blockType: 'base',
