@@ -38,7 +38,14 @@
     </div>
     <SysBaseMsg />
     <el-dialog v-model="dialogVisible" fullscreen>
-      <avue-form ref="form" :option="optionConfig" v-model="form"></avue-form>
+      <avue-form ref="form" :option="options" v-model="data">
+        <template #baseMsg="{disabled, size}">
+          <avue-form ref="baseMsgForm" :option="baseOptions" v-model="data.baseMsg"></avue-form>
+        </template>
+        <template #companyMsg="{disabled, size}">
+          <avue-form ref="companyMsgForm" :option="workOptions" v-model="data.companyMsg"></avue-form>
+        </template>
+      </avue-form>
     </el-dialog>
   </div>
 </template>
@@ -51,7 +58,7 @@ import description01 from '@/components/descriptions/description01.vue'
 import experience01 from '@/components/experiences/experience01.vue'
 import SysBaseMsg from '@/components/SysBaseMsg/index.vue'
 import api from '@/mock/index.ts'
-import { optionConfig } from '@/const/index.ts'
+import { optionConfig, options, workOptions, baseOptions } from '@/const/index.ts'
 import { reactive, ref } from 'vue'
 import { htmlToPdf, downloadPDF } from '@/utils/htmlToPdf.ts'
 import { outputPDF } from '@/utils/outputPDF.js'
