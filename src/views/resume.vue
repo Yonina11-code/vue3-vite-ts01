@@ -37,13 +37,10 @@
         </div>
     </div>
     <SysBaseMsg />
-    <el-dialog v-model="dialogVisible" fullscreen>
+    <el-dialog v-model="dialogVisible">
       <avue-form ref="form" :option="options" v-model="data">
         <template #baseMsg="{disabled, size}">
           <avue-form ref="baseMsgForm" :option="baseOptions" v-model="data.baseMsg"></avue-form>
-        </template>
-        <template #companyMsg="{disabled, size}">
-          <avue-form ref="companyMsgForm" :option="workOptions" v-model="data.companyMsg"></avue-form>
         </template>
       </avue-form>
     </el-dialog>

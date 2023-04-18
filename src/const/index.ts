@@ -162,6 +162,7 @@ export const optionConfig = {
 export const options = {
   labelWidth: 0,
   span: 24,
+  emptyBtn: false,
   column: [
     {
       value: '个人基本信息',
@@ -180,7 +181,35 @@ export const options = {
     },
     {
       prop: 'companyMsg',
-      slot: true
+      type: 'dynamic',
+      span: 24,
+      children: {
+        index: false,
+        align: 'center',
+        type: 'form',
+        headerAlign: 'center',
+        column: [{ // name不展示
+          label: '公司名称',
+          prop: 'label',
+          tip: 'row'
+        }, {
+          label: '职位名称',
+          prop: 'job',
+          tip: 'row'
+        }, {
+          label: '起始时间',
+          prop: 'ctime',
+          type: 'daterange',
+          tip: 'row'
+        }, {
+          label: '主要功能',
+          prop: 'discription',
+          span: 24,
+          type: 'textarea',
+          tip: 'discription'
+        }
+        ]
+      }
     },
     {
       value: '专业技能',
@@ -227,6 +256,7 @@ export const options = {
             tip: 'rows'
           }, {
             label: '项目描述',
+            type: 'textarea',
             prop: 'discription',
             tip: 'discription'
           }, {
@@ -236,6 +266,26 @@ export const options = {
           }, {
             label: '主要工作',
             prop: 'mainJobs',
+            span: 24,
+            type: 'dynamic',
+            children: {
+              column: [
+                {
+                  label: '主要工作',
+                  prop: 'name'
+                },
+                {
+                  label: '描述',
+                  prop: 'descrip',
+                  type: 'array'
+                }
+              ]
+            }
+            // type: 'array' // slot? dynamic？
+          },{
+            label: '重难点',
+            prop: 'mains',
+            span: 24,
             type: 'array' // slot? dynamic？
           }
         ],
@@ -247,8 +297,9 @@ export const options = {
       type: 'title'
     },
     {
+      label: '',
       prop: 'extra',
-      slot: true
+      type: 'textarea'
     },
   ],
 }
