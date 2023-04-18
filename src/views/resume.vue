@@ -2,10 +2,11 @@
   <div class="flex-start">
     <div>
       <div>
-        <el-button @click="handlePrint()">打印</el-button>
+        <!-- <el-button @click="handlePrint()">打印</el-button> -->
+        <el-button @click="handleWindowPrint( '#demo', '电子合同' )">打印</el-button>
         <el-button @click="handleEdit()">编辑</el-button>
       </div>
-      <div ref="content" class="resume-content app-container">
+      <div ref="content" id="demo" class="resume-content app-container">
         <div class="app-container-inner">
           <template v-for="block in optionConfig.column" :key="block.label">
             <!-- 基本信息 -->
@@ -76,6 +77,38 @@ function handlePrint () {
   outputPDF({
     element: content.value
   })
+}
+// 打印测试
+function handleWindowPrint(ele, fileName) {
+
+        console.log(666);
+
+        document.head.innerHTML = '<meta charset="utf-8">\n' +
+          ' <title> ' + fileName + '</title>\n' +
+          ' <link rel="shortcut icon" href="http://192.168.29.50:8081/favicon.ico" type="image/x-icon" />\n' +
+          ' <meta name="format-detection" content="telephone=no">\n' +
+          ' <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">\n' +
+          ' <meta name="viewport" content="width=device-width,initial-scale=1.0">\n' +
+          ' <link rel="stylesheet" href="./static/css/contract.css"/>';  
+
+        document.body.innerHTML = document.querySelector(ele).outerHTML;
+
+        // window.print();
+
+        //转异步 等待dom元素渲染（样式）完毕在打印
+        setTimeout(() => {
+          //打印
+          window.print();
+          //刷新页面
+          window.location.reload();
+        }, 20)
+
+
+        //重新设会当前页面
+        // window.document.body.innerHTML = bdHtml;
+        // document.querySelector('#app').innerHTML =  bdHtml;
+        //刷新页面
+        // window.location.reload();
 }
 // 编辑
 function handleEdit () {
