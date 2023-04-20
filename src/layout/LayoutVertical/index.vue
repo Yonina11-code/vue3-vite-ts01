@@ -1,10 +1,10 @@
 <template>
   <!-- 纵向布局 -->
-  <Siddebar></Siddebar>
+  <Siddebar class="noNeedPrint"></Siddebar>
   <div class="main-container">
-    <HeaderVertical />
+    <HeaderVertical class="noNeedPrint"/>
     <Main></Main>
-    <Footer></Footer>
+    <Footer class="noNeedPrint"></Footer>
   </div>
 </template>
 
@@ -33,6 +33,7 @@ import Footer from '../components/Footer/index.vue'
   .sidebar-container {
     display: flex;
     flex-direction: column;
+    height: 100vh;
   }
   .drawer-bg {
     background: #000;

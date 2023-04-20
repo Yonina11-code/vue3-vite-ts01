@@ -1,7 +1,7 @@
 <template>
-  <Height />
+  <!-- <Height class="noNeedPrint"/> -->
   <div
-    class="m-layout-header"
+    class="m-layout-header noNeedPrint"
     :class="{
       'fixed-header': themeConfig.fixedHeader,
       collapse: themeConfig.fixedHeader && isCollapse,

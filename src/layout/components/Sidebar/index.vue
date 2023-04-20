@@ -20,7 +20,7 @@
 import { computed } from 'vue'
 import SubMenu from '../SubMenu/SubMenu.vue'
 import Logo from './components/Logo.vue'
-import { useSettingsStore } from '@/pinia/modules/setting';
+import { useSettingsStore } from '@/pinia/modules/setting'
 import { usePermissionStore } from '@/pinia/modules/permission.ts'
 import { useRoute } from 'vue-router'
   const SettingStore = useSettingsStore()

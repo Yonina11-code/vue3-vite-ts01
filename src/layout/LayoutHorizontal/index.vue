@@ -1,8 +1,8 @@
 <template>
   <div class="main-container">
-    <UHeader/>
+    <UHeader class="noNeedPrint"/>
     <Main/>
-    <Footer/>
+    <Footer class="noNeedPrint"/>
   </div>
 </template>
 

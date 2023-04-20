@@ -15,7 +15,9 @@ import 'element-plus/theme-chalk/dark/css-vars.css'
 import '@/styles/element-dark.scss'
 // 引入全局组件布局
 import PageWrapLayout from '@/components/PageWrapLayout/index.vue'
+import print from 'vue3-print-nb'
 const app = createApp(App)
+app.use(print)
 app.component('PageWrapLayout', PageWrapLayout)
 app.use(ElementPlus)
 app.use(pinia)

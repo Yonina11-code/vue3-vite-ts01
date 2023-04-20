@@ -2,10 +2,11 @@
   <div class="flex-start">
     <div>
       <div class="noNeedPrint">
-        <!-- <el-button @click="handlePrint()">打印</el-button> -->
-        <el-button @click="handleWindowPrint('#demo', '个人简历' )">打印</el-button>
+        <!-- <el-button @click="handleWindowPrint()">打印</el-button> -->
+        <el-button v-print="'#demo'">打印</el-button>
         <el-button @click="handleEdit()">编辑</el-button>
       </div>
+      <!--startprint-->
       <div ref="content" id="demo" class="resume-content app-container">
         <div class="app-container-inner">
           <template v-for="block in optionConfig.column" :key="block.label">
@@ -37,6 +38,8 @@
         </div>
         </div>
     </div>
+    <!--endprint-->
+    <iframe ref="printf" src="" width="0" height="0" frameborder="0"></iframe>
     <SysBaseMsg class="noNeedPrint" />
     <el-dialog v-model="dialogVisible" class="noNeedPrint">
       <avue-form ref="form" :option="options" v-model="data">
@@ -64,6 +67,7 @@ let data = reactive({
   name: 'test0101'
 })
 let content = ref() // 打印dom
+let printf = ref()
 let dialogVisible = ref(false)
 getMsg()
 // 获取基本数据
@@ -103,7 +107,8 @@ function handleEdit () {
 <style lang="less" scoped>
 .resume-content {
   // padding: 20px;
-  width: 592.28*2px;
+  width: 900px;
+  // height: 1568px;
   page-break-inside: avoid;
   background-color: var(--color-background);
 }

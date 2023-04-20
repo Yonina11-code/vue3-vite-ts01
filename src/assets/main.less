@@ -11,10 +11,42 @@
   display: flex;
   flex-wrap: wrap;
 }
+.flex-row {
+  display: flex;
+}
+// .noNeedPrint {
+//   display: none !important;
+// }
 
-@media print{
-  div:not(#demo) {
+@media print {
+  body {
+    //添加height:auto;才能打印多页，否则只能打印一页
+    // width: 100%;
+    // height: auto;
+    padding: 0;
+    margin: 0;
+  }
+  // h1 {
+  //   //在某个元素之前添加分页符，也就是在此元素之前实现换页，具体给哪个元素换页，需要自行判断，然后指定换页样式的类名即可
+  //   page-break-before: always;
+  // }
+  // .footer {
+  //   //在某个元素之后添加分页符，也就是在此元素之后实现换页，具体给哪个元素换页，需要自行判断，然后指定换页样式的类名即可
+  //   page-break-after: always;
+  // }
+  @page {
+    overflow: visible;
+    /* 纵向 */
+    margin:0;
+    //控制是使用a4还是使用其它纸张规格
+    size: auto;
+    /* 边距 上右下左 */
+    // margin: 1cm 2cm 1cm 2cm;
+  }
+  .noNeedPrint {
     display: none !important;
   }
+  .resume-content {
+    width: auto;
+  }
 }
-

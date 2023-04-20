@@ -1,5 +1,5 @@
 <template>
-  <div class="g-container-layout" :class="classObj">
+  <div class="g-container-layout flex-row" :class="classObj">
     <component :is="LayoutComponents[themeConfig.mode]"></component>
     <Theme />
   </div>
@@ -41,7 +41,7 @@ const classObj = computed(() => {
     hideSidebar: !SettingStore.isCollapse,
     openSidebar: SettingStore.isCollapse,
     withoutAnimation: SettingStore.withoutAnimation,
-    mobile: device.value === 'mobile'
+    mobile: device.value === 'mobile',
   }
 })
 </script>
