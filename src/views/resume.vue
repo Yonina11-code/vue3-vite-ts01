@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-start">
+  <div class="flex-start resume-container">
     <div>
       <div class="noNeedPrint">
         <!-- <el-button @click="handleWindowPrint()">打印</el-button> -->
@@ -105,6 +105,9 @@ function handleEdit () {
 </script>
 
 <style lang="less" scoped>
+.resume-container {
+  background-color: #fff;
+}
 .resume-content {
   // padding: 20px;
   width: 900px;

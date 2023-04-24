@@ -20,5 +20,6 @@ import Footer from '../components/Footer/index.vue'
   box-sizing: border-box;
   flex-direction: column;
   min-height: 100%;
+  background-color: #fff;
 }
 </style>
