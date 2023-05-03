@@ -37,10 +37,8 @@
 
 <script setup lang="ts">
   import { ref,reactive } from 'vue'
-  // npm install @element-plus/icons-vue
-  // npm config set registry https://registry.npm.taobao.org
-  // npm config get registry
   import { Edit } from '@element-plus/icons-vue'
+  import { api } from '@/axios/api'
 
   interface loginArrObj{
   id:number,
@@ -49,9 +47,9 @@
  }
 
   interface resumeArrObj{
-    id:number,
-    title?:string,
-    time?:string
+    id: number,
+    title?: string,
+    time?: string
   }
 
   const loginArr = ref<loginArrObj[]>([{id:1, title:"最近登录时间", value:"2023-04-03 00:00:00"}, {id:2, title:"最近登录IP地址", value:"127.0.0.1"}, {id:3, title:"当前登录用户IP", value:"127.0.0.1"}])
@@ -59,9 +57,12 @@
   const resumeArr = ref<resumeArrObj[]>([{id:1, title:"如何快速定制个性化简历?", time:"2023-04-03 00:00:00"}, {id:2, title:"如何快速定制个性化简历?", time:"2023-04-03 00:00:00"}, {id:3, title:"如何快速定制个性化简历?", time:"2023-04-03 00:00:00"}])
 
   const format = (percentage: number) => (percentage === 100 ? 'Full' : `${percentage}%`)
+  const getBaseMsg = () => {
+    api
+  }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .content {
   flex: 1;
   padding: 20px;

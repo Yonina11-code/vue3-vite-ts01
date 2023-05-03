@@ -26,14 +26,14 @@
 <style lang="less" scoped>
 .fixed-top {
   position: sticky;
-   top: -1px;
-    background: #B8C1C8;
+  top: -1px;
+  background: #B8C1C8;
   border-bottom: 1px solid #989EA4;
   border-top: 1px solid #717D85;
   color: #FFF;
   font: bold 18px/21px Helvetica, Arial, sans-serif;
   margin: 0;
-  padding: 2px 0 0 12px;
+ // padding: 2px 0 0 12px;
   position: -webkit-sticky;
   position: sticky;
   top: -1px;
