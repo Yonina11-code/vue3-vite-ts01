@@ -18,7 +18,8 @@ router.beforeEach(async (to, from, next) => {
   const hasToken = userStore.token // 确定用户是否已登录过， 存在token
   if (hasToken) {
     if (to.path === '/login') {
-      next({ path: '/' })
+      // next({ path: '/' })
+      next()
     } else {
       try {
         const PermissionStore = usePermissionStore()

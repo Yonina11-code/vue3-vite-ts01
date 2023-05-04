@@ -2,7 +2,8 @@ export const optionConfig = {
   menuBtn: false,
   // detail: true,
   disabled: false,
-  span: 6,
+  gutter: 6,
+  span: 12,
   title: {
     style: {
       color: '',
@@ -15,10 +16,12 @@ export const optionConfig = {
       label: '个人基本信息',
       blockType: 'base',
       disabled: false,
+      gutter: 6,
       column: [
         {
           label: '姓名',
           prop: 'name',
+          gutter: 6,
           rules: [
             {
               required: true,
@@ -89,9 +92,11 @@ export const optionConfig = {
       blockType: 'job',
       type: 'dynamic',
       disabled: false,
+      gutter: 6,
       column: [{ // name不展示
         label: '公司名称',
         prop: 'label',
+        gutter: 6,
         tip: 'row'
       }, {
         label: '职位名称',
@@ -229,6 +234,7 @@ export const options = {
       prop: 'experiences',
       type: 'dynamic',
       span: 24,
+      gutter: 6,
       children: {
         index: false,
         align: 'center',
@@ -248,16 +254,19 @@ export const options = {
           {
             label: '项目名称',
             prop: 'name',
+            gutter: 6,
             tip: 'rows'
           }, {
             label: '起始时间',
             type: 'date',
             prop: 'ctime',
+            gutter: 6,
             tip: 'rows'
           }, {
             label: '项目描述',
             type: 'textarea',
             prop: 'discription',
+            gutter: 6,
             tip: 'discription'
           }, {
             label: '主要技术',

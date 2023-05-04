@@ -28,7 +28,7 @@ export const constantRoutes: Array<RouteRecordRaw & extendRoute> = [
       {
         path: '/resume',
         name: 'resume',
-        component: () => import('../views/resume.vue'),
+        component: () => import('@/views/resume.vue'),
         meta: { title: '登录res' }
       }
     ]
@@ -54,5 +54,4 @@ const router = createRouter({
   routes: constantRoutes
 
 })
-
 export default router

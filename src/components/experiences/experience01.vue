@@ -34,7 +34,6 @@ import { computed } from 'vue'
     return props.options.filter(item => item.tip === 'rows')
   })
   const discription = computed(() => {
-    console.log('options', props.options)
     return props.options.filter(item => item.tip === 'discription')[0] || {}
   })
   const mainSkill = computed(() => {

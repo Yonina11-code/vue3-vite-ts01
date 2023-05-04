@@ -41,7 +41,7 @@
     <!--endprint-->
     <iframe ref="printf" src="" width="0" height="0" frameborder="0"></iframe>
     <SysBaseMsg class="noNeedPrint" />
-    <el-dialog v-model="dialogVisible" class="noNeedPrint">
+    <el-dialog v-model="dialogVisible" class="noNeedPrint" width="80%">
       <avue-form ref="form" :option="options" v-model="data">
         <template #baseMsg="{disabled, size}">
           <avue-form ref="baseMsgForm" :option="baseOptions" v-model="data.baseMsg"></avue-form>

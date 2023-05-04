@@ -1,6 +1,6 @@
 <template>
   <div class="login-title">
-    <img class="icon" src="@/assets/image/logo.png" alt="logo" />
+    <img class="icon" src="@/assets/image/微笑.png" alt="logo" />
     <h2 class="title">Vue-Admin</h2>
   </div>
   <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules">
@@ -83,6 +83,9 @@ const changePasswordType = () => {
 }
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="less" scoped>
+.icon {
+  width: 110px;
+  height: 120px;
+}
 </style>
