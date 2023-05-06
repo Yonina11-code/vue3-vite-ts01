@@ -16,7 +16,7 @@ export default defineConfig({
     supportTs: true, // 打开后，可以读取 ts 文件模块。 请注意，打开后将无法监视.js 文件。
     watchFiles: true, // 监视文件更改
   })],
-  resolve: {
+  resolve: { // 别名配置
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
