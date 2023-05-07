@@ -22,14 +22,26 @@ export const constantRoutes: Array<RouteRecordRaw & extendRoute> = [
   {
     path: '/',
     name: 'home',
-    redirect: '/resume',
+    redirect: '/index',
     component: Layout,
     children: [
+      {
+        path: '/index',
+        name: 'index',
+        component: () => import('@/views/index.vue'),
+        meta: { title: '首页' }
+      },
+      {
+        path: '/online',
+        name: 'online',
+        component: () => import('@/views/online.vue'),
+        meta: { title: '在线编辑' }
+      },
       {
         path: '/resume',
         name: 'resume',
         component: () => import('@/views/resume.vue'),
-        meta: { title: '登录res' }
+        meta: { title: '我的简历' }
       }
     ]
   },

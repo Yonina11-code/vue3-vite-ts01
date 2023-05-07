@@ -9,8 +9,8 @@
     >
       <el-menu-item index="0">LOGO</el-menu-item>
       <div class="flex-grow" />
-      <!-- <el-menu-item index="1">首页</el-menu-item> -->
-      <!-- <el-menu-item index="2">在线简历</el-menu-item> -->
+      <el-menu-item index="1" @click="handleIndex">首页</el-menu-item>
+      <el-menu-item index="2" @click="handleUpdateOnline">在线编辑</el-menu-item>
       <el-menu-item index="3" @click="handleResume">我的简历</el-menu-item>
       <li class="el-menu-item">
         <el-button type="primary" round @click="handleLogin" v-if="!userStore.token">未登录</el-button>
@@ -26,16 +26,26 @@ import { ref, reactive } from 'vue'
 const router = useRouter()
 const userStore = useUserStore()
 let data = reactive({
-  activeIndex: '3'
+  activeIndex: '1'
 })
 const handleLogin = () => {
   router.push({
     path: '/login'
   })
 }
+const handleIndex = () => {
+   router.push({
+    path: '/index'
+  })
+}
+const handleUpdateOnline = () => {
+   router.push({
+    path: '/online'
+  })
+}
 const handleResume = () => {
    router.push({
-    path: '/'
+    path: '/resume'
   })
 }
 </script>

@@ -1,40 +1,36 @@
 <template>
   <div class="flex-start resume-container">
     <div>
-      <div class="noNeedPrint">
-        <!-- <el-button @click="handleWindowPrint()">打印</el-button> -->
-        <el-button v-print="'#demo'">打印</el-button>
-        <el-button @click="handleEdit()">编辑</el-button>
-      </div>
       <!--startprint-->
       <div ref="content" id="demo" class="resume-content app-container">
         <div class="app-container-inner">
-          <template v-for="block in optionConfig.column" :key="block.label">
-            <!-- 基本信息 -->
-            <base-msg01 v-if="block.blockType === 'base'" :data="data[block.prop]"></base-msg01>
-            <template v-else-if="block.blockType === 'skill'">
-              <!-- 专业技能 -->
-              <title01 :config="optionConfig.title" :name="block.label"></title01>
-              <div class="flex-wrap">
-                <description01 class="skill" v-for="des in data[block.prop]" :key="des" :data="des"></description01>
-              </div>
-            </template>
-            <template v-else-if="block.blockType === 'job'">
-              <!-- 工作经验 -->
-              <title01 :config="optionConfig.title" :name="block.label"></title01>
-              <job01 v-for="item in data[block.prop]" :key="item.label" :data="item"></job01>
-            </template>
-            <template v-else-if="block.blockType === 'project'">
-              <!-- 项目经验 -->
-              <title01 :config="optionConfig.title" :name="block.label"></title01>
-              <experience01 v-for="item in data[block.prop]" :key="item.label" :data="item" :options="block.column"></experience01>
-            </template>
-            <template v-else-if="block.blockType === 'self'">
-              <!-- 自我评价 -->
-              <title01 :config="optionConfig.title" :name="block.label"></title01>
-              <div>{{data[block.prop]}}</div>
-            </template>
-          </template>
+          <div class="card">
+            <div class="card-content">
+              <h2>文章标题</h2>
+              <p>创建时间：2023年5月6日</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-content">
+              <h2>文章标题</h2>
+              <p>创建时间：2023年5月6日</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-content">
+              <h2>文章标题</h2>
+              <p>创建时间：2023年5月6日</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-content">
+              <h2>文章标题</h2>
+              <p>创建时间：2023年5月6日</p>
+            </div>
+          </div>
         </div>
         </div>
     </div>
@@ -117,5 +113,47 @@ function handleEdit () {
 }
 .skill {
   width: 50%;
+}
+.card {
+  display: flex;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.card-content {
+  padding: 20px;
+  width: 100%;
+}
+
+.card h2 {
+  font-size: 20px;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 14px;
+  color: #999999;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.card-link {
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 5px;
+  margin-right: 20px;
+}
+
+.card-link:hover {
+  background-color: #0069d9;
+}
+
+.card-link:active {
+  background-color: #005cbf;
 }
 </style>
